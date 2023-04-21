@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // change order to adoption
-const orderSchema = new Schema({
+const adoptionSchema = new Schema({
   purchaseDate: {
     type: Date,
     default: Date.now
   },
   // change product to pokemon
-  products: [
+  pokemons: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Product'
+      ref: 'Pokemon'
     }
   ]
 });
 
 // change order to adoption
-const Order = mongoose.model('Order', orderSchema);
+const Adoption = mongoose.model('Adoption', adoptionSchema);
 
 // change order to adoption
-module.exports = Order;
+module.exports = Adoption;
