@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Change category to type
-const categorySchema = new Schema({
+const typeSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -12,7 +12,7 @@ const categorySchema = new Schema({
 });
 
 // Change category to type
-const Category = mongoose.model('Category', categorySchema);
+const Type = mongoose.model('Type', typeSchema);
 
 // Change category to type
-module.exports = Category;
+module.exports = Type;

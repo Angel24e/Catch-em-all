@@ -1,21 +1,21 @@
 const { AuthenticationError } = require('apollo-server-express');
 // Change product to pokemon, category to type, and order to adoption
-const { User, Product, Category, Order } = require('../models');
+const { User, Pokemon, Type, Adoption } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
     // Change categories to types
-    categories: async () => {
-      return await Category.find();
+    types: async () => {
+      return await Type.find();
     },
     // Change products to pokemon and category to type
-    products: async (parent, { category, name }) => {
+    pokemons: async (parent, { type, name }) => {
       const params = {};
         // Change category to type
-      if (category) {
-        params.category = category;
+      if (type) {
+        params.type = type;
       }
 
       if (name) {
@@ -24,18 +24,18 @@ const resolvers = {
         };
       }
     // Change products to pokemon and category to type
-      return await Product.find(params).populate('category');
+      return await Pokemon.find(params).populate('type');
     },
         // Change products to pokemon and category to type
-    product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+    pokemon: async (parent, { _id }) => {
+      return await Pokemon.findById(_id).populate('type');
     },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
         // Change product to pokemon, category to type, and order to adoption
-          path: 'orders.products',
-          populate: 'category'
+          path: 'adoptions.pokemons',
+          populate: 'type'
         });
 
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
@@ -45,15 +45,15 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    order: async (parent, { _id }, context) => {
+    adoption: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
         // Change product to pokemon, category to type, and order to adoption
-          path: 'orders.products',
-          populate: 'category'
+          path: 'adoptions.pokemons',
+          populate: 'type'
         });
         // Change orders to adoption
-        return user.orders.id(_id);
+        return user.adoptions.id(_id);
       }
 
       throw new AuthenticationError('Not logged in');
@@ -61,23 +61,23 @@ const resolvers = {
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       // Change product to pokemon, category to type, and order to adoption
-      const order = new Order({ products: args.products });
+      const adoption = new Adoption({ pokemons: args.pokemons });
       const line_items = [];
         // Change products to pokemon
-      const { products } = await order.populate('products');
+      const { pokemons } = await adoption.populate('pokemons');
 
-      for (let i = 0; i < products.length; i++) {
+      for (let i = 0; i < pokemons.length; i++) {
         // Change products to pokemon
-        const product = await stripe.products.create({
-          name: products[i].name,
-          description: products[i].description,
-          images: [`${url}/images/${products[i].image}`]
+        const pokemon = await stripe.pokemons.create({
+          name: pokemons[i].name,
+          description: pokemons[i].description,
+          images: [`${url}/images/${pokemons[i].image}`]
         });
 
         const price = await stripe.prices.create({
         // Change products to pokemon
-          product: product.id,
-          unit_amount: products[i].price * 100,
+          pokemon: pokemon.id,
+          unit_amount: pokemons[i].price * 100,
           currency: 'usd',
         });
 
@@ -106,15 +106,15 @@ const resolvers = {
       return { token, user };
     },
     // Change order to adoption and products to pokemon
-    addOrder: async (parent, { products }, context) => {
+    addAdoption: async (parent, { pokemons }, context) => {
       console.log(context);
       if (context.user) {
         // Change order to adoption and products to pokemon
-        const order = new Order({ products });
+        const adoption = new Adoption({ pokemons });
         // change order to adoption
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { adoptions: adoption } });
         // change order to adoption
-        return order;
+        return adoption;
       }
 
       throw new AuthenticationError('Not logged in');
@@ -127,10 +127,10 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     // change product to pokemon
-    updateProduct: async (parent, { _id, quantity }) => {
+    updatePokemon: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
         // change product to pokemon
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+      return await Pokemon.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
