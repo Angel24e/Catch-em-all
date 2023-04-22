@@ -12,13 +12,13 @@ export function pluralize(name, count) {
 /*shop-shop = catch-em-all */
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open('shop-shop', 1);
+    const request = window.indexedDB.open('catch-em-all', 1);
     let db, tx, store;
     request.onupgradeneeded = function(e) {
       const db = request.result;
-      //products = pokemon; categories=type
-      db.createObjectStore('products', { keyPath: '_id' });
-      db.createObjectStore('categories', { keyPath: '_id' });
+      //products = pokemon; categories=types
+      db.createObjectStore('pokemon', { keyPath: '_id' });
+      db.createObjectStore('types', { keyPath: '_id' });
       db.createObjectStore('cart', { keyPath: '_id' });
     };
 

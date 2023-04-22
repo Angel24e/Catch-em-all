@@ -15,9 +15,9 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import { StoreProvider } from './utils/GlobalState';
+import { AdoptionProvider } from './utils/GlobalState';
 import Success from './pages/Success';
-import OrderHistory from './pages/OrderHistory';
+import AdoptionHistory from './pages/OrderHistory';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -43,7 +43,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
+          <AdoptionProvider>
             <Nav />
             <Routes>
               <Route 
@@ -64,10 +64,10 @@ function App() {
               />
               <Route 
                 path="/orderHistory" 
-                element={<OrderHistory />} 
+                element={<AdoptionHistory />} 
               />
               <Route 
-                path="/products/:id" 
+                path="/pokemon/:id" 
                 element={<Detail />} 
               />
               <Route
@@ -75,7 +75,7 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-          </StoreProvider>
+          </AdoptionProvider>
         </div>
       </Router>
     </ApolloProvider>

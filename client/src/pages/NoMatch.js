@@ -1,7 +1,7 @@
 import React from "react";
 import Jumbotron from "../components/Jumbotron";
 
-//Change rolling eyes to pokemon emoji
+
 const NoMatch = () => {
   return (
     <div>
