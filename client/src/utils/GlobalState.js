@@ -1,3 +1,10 @@
+/*StoreProvider = AdoptionProvider
+useProductReducer = useProductReducer 
+useStoreContext = useAdoptionContext
+StoreContext = AdoptionContext
+currentCategory = currentType 
+products = pokemon
+categories = type */
 import React, { createContext, useContext } from "react";
 import { useProductReducer } from './reducers'
 

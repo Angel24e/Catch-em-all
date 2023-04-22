@@ -1,3 +1,4 @@
+//addOrder = addAdoption ; ADD_ORDER = ADD_ADOPTION ; products = pokemon ; category = type;
 import { useReducer } from "react";
 import {
   UPDATE_PRODUCTS,

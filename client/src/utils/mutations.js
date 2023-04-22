@@ -1,3 +1,5 @@
+//addOrder = addAdoption ; ADD_ORDER = ADD_ADOPTION ; products = pokemon ; category = type;
+
 import { gql } from '@apollo/client';
 
 export const LOGIN = gql`

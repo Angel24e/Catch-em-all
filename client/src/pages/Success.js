@@ -1,3 +1,4 @@
+// .addOrder = .addAdoption
 import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Jumbotron from '../components/Jumbotron';
@@ -33,7 +34,7 @@ function Success() {
     <div>
       <Jumbotron>
         <h1>Success!</h1>
-        <h2>Thank you for your purchase!</h2>
+        <h2>Thank you for giving your pokemon a new home!</h2>
         <h2>You will now be redirected to the home page</h2>
       </Jumbotron>
     </div>
