@@ -1,3 +1,6 @@
+/*Variable Changes
+PRODUCT = POKEMON */
+
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -8,9 +11,11 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
   ADD_TO_CART,
-  UPDATE_PRODUCTS,
+  //UPDATE_PRODUCTS
+  UPDATE_POKEMON,
 } from '../utils/actions';
-import { QUERY_PRODUCTS } from '../utils/queries';
+//QUERY_PRODUCTS
+import { QUERY_POKEMON } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import spinner from '../assets/spinner.gif';
 
@@ -18,43 +23,55 @@ function Detail() {
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
 
-  const [currentProduct, setCurrentProduct] = useState({});
+  //currentProduct, setCurrentProduct
+  const [currentPokemon, setCurrentPokemon] = useState({});
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  //QUERY_PRODUCTS
+  const { loading, data } = useQuery(QUERY_POKEMON);
 
-  const { products, cart } = state;
+  //products
+  const { pokemon, cart } = state;
 
   useEffect(() => {
     // already in global store
     if (products.length) {
-      setCurrentProduct(products.find((product) => product._id === id));
+      //setCurrentProducts ;; products.find((product) => pokemon._id)
+      setCurrentPokemon(pokemon.find((pokemon) => pokemon._id === id));
     }
     // retrieved from server
     else if (data) {
       dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
+        //UPDATE_POKEMON
+        type: UPDATE_POKEMON,
+        //data.products
+        products: data.pokemon,
       });
-
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+        //data.pokemon
+      data.pokemon.forEach((pokemon) => {
+        //'products', 'put', product
+        idbPromise('pokemon', 'put', pokemon);
       });
     }
     // get cache from idb
     else if (!loading) {
-      idbPromise('products', 'get').then((indexedProducts) => {
+      // 'product', 'get', indexedProducts
+      idbPromise('pokemon', 'get').then((indexedPokemon) => {
         dispatch({
-          type: UPDATE_PRODUCTS,
-          products: indexedProducts,
+          //UPDATE_POKEMON
+          type: UPDATE_POKEMON,
+          //products: indexedProduct,
+          products: indexedPokemon,
         });
       });
     }
-  }, [products, data, loading, dispatch, id]);
+    //products
+  }, [pokemon, data, loading, dispatch, id]);
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === id);
     if (itemInCart) {
       dispatch({
+        //type === ???
         type: UPDATE_CART_QUANTITY,
         _id: id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
@@ -66,45 +83,47 @@ function Detail() {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        product: { ...currentProduct, purchaseQuantity: 1 },
+        //product: {...currentProduct, purchaseQuantity: 1},
+        pokemon: { ...currentPokemon, purchaseQuantity: 1 },
       });
-      idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
+      idbPromise('cart', 'put', { ...currentPokemon, purchaseQuantity: 1 });
     }
   };
 
   const removeFromCart = () => {
     dispatch({
       type: REMOVE_FROM_CART,
-      _id: currentProduct._id,
+      //currentProduct
+      _id: currentPokemon._id,
     });
 
-    idbPromise('cart', 'delete', { ...currentProduct });
+    //currentProduct
+    idbPromise('cart', 'delete', { ...currentPokemon });
   };
 
-  return (
+  return ( //Possible variable change
+
+    //currentProduct
     <>
       {currentProduct && cart ? (
         <div className="container my-1">
-          <Link to="/">← Back to Products</Link>
-
-          <h2>{currentProduct.name}</h2>
-
-          <p>{currentProduct.description}</p>
+          <Link to="/">← Back to Pokemon</Link>
+          <h2>{currentPokemon.name}</h2>
+          <p>{currentPokemon.description}</p>
 
           <p>
-            <strong>Price:</strong>${currentProduct.price}{' '}
+            <strong>Price:</strong>${currentPokemon.price}{' '}
             <button onClick={addToCart}>Add to Cart</button>
             <button
-              disabled={!cart.find((p) => p._id === currentProduct._id)}
+              disabled={!cart.find((p) => p._id === currentPokemon._id)}
               onClick={removeFromCart}
             >
               Remove from Cart
             </button>
           </p>
-
           <img
-            src={`/images/${currentProduct.image}`}
-            alt={currentProduct.name}
+            src={`/images/${currentPokemon.image}`}
+            alt={currentPokemon.name}
           />
         </div>
       ) : null}
