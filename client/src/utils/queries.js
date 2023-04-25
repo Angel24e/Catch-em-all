@@ -25,7 +25,7 @@ export const QUERY_CHECKOUT = gql`
   }
 `;
 
-export const QUERY_ALL_POKEMON = gql`
+export const QUERY_POKEMON = gql`
   {
     products {
       _id
