@@ -1,21 +1,21 @@
 const { AuthenticationError } = require('apollo-server-express');
 // Change product to pokemon, category to type, and order to adoption
-const { User, Pokemon, Type, Adoption } = require('../models');
+const { User, Pokemon, Category, Adoption } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
     // Change categories to types
-    types: async () => {
-      return await Type.find();
+    Categories: async () => {
+      return await Category.find();
     },
     // Change products to pokemon and category to type
-    pokemons: async (parent, { type, name }) => {
+    pokemons: async (parent, { category, name }) => {
       const params = {};
         // Change category to type
-      if (type) {
-        params.type = type;
+      if (category) {
+        params.category = category;
       }
 
       if (name) {
@@ -24,18 +24,18 @@ const resolvers = {
         };
       }
     // Change products to pokemon and category to type
-      return await Pokemon.find(params).populate('type');
+      return await Pokemon.find(params).populate('category');
     },
         // Change products to pokemon and category to type
     pokemon: async (parent, { _id }) => {
-      return await Pokemon.findById(_id).populate('type');
+      return await Pokemon.findById(_id).populate('category');
     },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
         // Change product to pokemon, category to type, and order to adoption
           path: 'adoptions.pokemons',
-          populate: 'type'
+          populate: 'category'
         });
 
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
@@ -50,7 +50,7 @@ const resolvers = {
         const user = await User.findById(context.user._id).populate({
         // Change product to pokemon, category to type, and order to adoption
           path: 'adoptions.pokemons',
-          populate: 'type'
+          populate: 'category'
         });
         // Change orders to adoption
         return user.adoptions.id(_id);

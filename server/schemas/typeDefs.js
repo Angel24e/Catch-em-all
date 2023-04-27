@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 // Change category to type, Product to pokemon, and order to adoption
 // Change in the query and mutation type as well
 const typeDefs = gql`
-  type Type {
+  type Category {
     _id: ID
     name: String
   }
@@ -14,7 +14,7 @@ const typeDefs = gql`
     image: String
     quantity: Int
     price: Float
-    type: Type
+    type: Category
   }
 
   type Adoption {
@@ -41,8 +41,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    types: [Type]
-    pokemons(type: ID, name: String): [Pokemon]
+    types: [Category]
+    pokemons(Category: ID, name: String): [Pokemon]
     pokemon(_id: ID!): Pokemon
     user: User
     adoption(_id: ID!): Adoption
