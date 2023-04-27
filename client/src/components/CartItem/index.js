@@ -35,7 +35,6 @@ const CartItem = ({ item }) => {
 
     }
   }
-
   return (
     <div className="flex-row">
       <div>
@@ -47,7 +46,7 @@ const CartItem = ({ item }) => {
       <div>
         <div>{item.name}, ${item.price}</div>
         <div>
-          <span>Qty:</span>
+          <span>I'll Pick:</span>
           <input
             type="number"
             placeholder="1"
@@ -59,7 +58,7 @@ const CartItem = ({ item }) => {
             aria-label="trash"
             onClick={() => removeFromCart(item)}
           >
-            🗑️
+            🚮
           </span>
         </div>
       </div>

@@ -34,7 +34,7 @@ function Success() {
     <div>
       <Jumbotron>
         <h1>Success!</h1>
-        <h2>Thank you for giving your pokemon a new home!</h2>
+        <h2>Thank you for your Adoption!</h2>
         <h2>You will now be redirected to the home page</h2>
       </Jumbotron>
     </div>

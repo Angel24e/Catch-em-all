@@ -63,10 +63,12 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <span role="img" aria-label="trash">
-          🛒
-        </span>
-      </div>
+      <img
+        src={ballCartImage}
+        alt="Ball Cart"
+        className="ball-cart-icon"
+      />
+    </div>
     );
   }
 
@@ -75,7 +77,7 @@ const Cart = () => {
       <div className="close" onClick={toggleCart}>
         [close]
       </div>
-      <h2>Shopping Cart</h2>
+      <h2>Catch 'Em All!</h2>
       {state.cart.length ? (
         <div>
           {state.cart.map((item) => (
@@ -86,18 +88,18 @@ const Cart = () => {
             <strong>Total: ${calculateTotal()}</strong>
 
             {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
+              <button onClick={submitCheckout}> Adopt Now </button>
             ) : (
-              <span>(log in to check out)</span>
+              <span>(log in to Adopt)</span>
             )}
           </div>
         </div>
       ) : (
         <h3>
           <span role="img" aria-label="shocked">
-            😱
+          🔴
           </span>
-          You haven't added anything to your cart yet!
+          You haven't caught any Pokemon yet
         </h3>
       )}
     </div>
