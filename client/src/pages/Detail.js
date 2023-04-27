@@ -101,29 +101,30 @@ function Detail() {
     idbPromise('cart', 'delete', { ...currentPokemon });
   };
 
-  return ( //Possible variable change
-
-    //currentProduct
+  return (
     <>
       {currentProduct && cart ? (
         <div className="container my-1">
-          <Link to="/">← Back to Pokemon</Link>
-          <h2>{currentPokemon.name}</h2>
-          <p>{currentPokemon.description}</p>
+          <Link to="/">← Back to Adoptions</Link>
+
+          <h2>{currentProduct.name}</h2>
+
+          <p>{currentProduct.description}</p>
 
           <p>
-            <strong>Price:</strong>${currentPokemon.price}{' '}
-            <button onClick={addToCart}>Add to Cart</button>
+            <strong>Price:</strong>${currentProduct.price}{' '}
+            <button onClick={addToCart}>Add to Adoption</button>
             <button
-              disabled={!cart.find((p) => p._id === currentPokemon._id)}
+              disabled={!cart.find((p) => p._id === currentProduct._id)}
               onClick={removeFromCart}
             >
-              Remove from Cart
+              Remove from Adoption
             </button>
           </p>
+
           <img
-            src={`/images/${currentPokemon.image}`}
-            alt={currentPokemon.name}
+            src={`/images/${currentProduct.image}`}
+            alt={currentProduct.name}
           />
         </div>
       ) : null}

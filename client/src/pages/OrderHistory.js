@@ -19,22 +19,22 @@ function AdoptHistory() {
   return (
     <>
       <div className="container my-1">
-        <Link to="/">← Back to Pokemon</Link>
+        <Link to="/">← Back to Adoption</Link>
 
         {user ? (
           <>
             <h2>
               Adoption History for {user.firstName} {user.lastName}
             </h2>
-            {user.adoptions.map((adopt) => (
-              <div key={adopt._id} className="my-2">
+            {user.orders.map((order) => (
+              <div key={order._id} className="my-2">
                 <h3>
-                  {new Date(parseInt(order.adoptionDate)).toLocaleDateString()}
+                  {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>
                 <div className="flex-row">
-                  {order.pokemon.map(({ _id, image, name, price }, index) => (
+                  {order.products.map(({ _id, image, name, price }, index) => (
                     <div key={index} className="card px-1 py-1">
-                      <Link to={`/pokemon/${_id}`}>
+                      <Link to={`/products/${_id}`}>
                         <img alt={name} src={`/images/${image}`} />
                         <p>{name}</p>
                       </Link>

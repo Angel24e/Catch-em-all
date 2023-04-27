@@ -43,39 +43,19 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <AdoptionProvider>
+          <StoreProvider>
             <Nav />
             <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
-              />
-              <Route 
-                path="/login" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
-              />
-              <Route 
-                path="/success" 
-                element={<Success />} 
-              />
-              <Route 
-                path="/orderHistory" 
-                element={<AdoptionHistory />} 
-              />
-              <Route 
-                path="/pokemon/:id" 
-                element={<Detail />} 
-              />
-              <Route
-                path="*" 
-                element={<NoMatch />} 
-              />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/orderHistory" element={<OrderHistory />} />
+              <Route path="/products/:id" element={<Detail />} />
+              <Route path="*" element={<NoMatch />} />
             </Routes>
-          </AdoptionProvider>
+            <Footer /> {/* Add the Footer component here */}
+          </StoreProvider>
         </div>
       </Router>
     </ApolloProvider>

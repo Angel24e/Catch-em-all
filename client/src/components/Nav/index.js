@@ -10,7 +10,7 @@ function Nav() {
         <ul className="flex-row">
           <li className="mx-1">
             <Link to="/orderHistory">
-              Order History
+              Adoption History
             </Link>
           </li>
           <li className="mx-1">
@@ -40,16 +40,40 @@ function Nav() {
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
+    <header>
+          <h1>
         <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
+          <img
+            src={pokeball}
+            alt="Pokémon Ball"
+            className="pokeball-icon"
+          />
+          Catch-Em-All
         </Link>
       </h1>
 
       <nav>
-        {showNavigation()}
+        {Auth.loggedIn() ? (
+          <ul className="nav-list">
+            <li>
+              <Link to="/orderHistory">Adoption History</Link>
+            </li>
+            <li>
+              <a href="/" onClick={() => Auth.logout()}>
+                Logout
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <ul className="nav-list">
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        )}
       </nav>
     </header>
   );

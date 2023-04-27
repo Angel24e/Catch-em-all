@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&family=Anton&family=Bruno+Ace+SC&family=Fjalla+One&family=Lobster&family=Oswald:wght@200;300;400;500;600;700&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Pacifico&display=swap');
 :root {
-  --primary: #232F3E;
-  --secondary: #F3A847;
-  --tertiary: #B12704;
-  --light: #fafafa;
-  --dark: #272f32;
+  --primary: #222224;
+  --secondary: #ee1515;
+  --tertiary: #f00000;
+  --light: #f0f0f0;
+  --dark: #222224;
   --error: rgb(228, 46, 1);
   --spacing-one: calc(1rem * 0.5);
   --spacing-two: calc(1rem);
@@ -16,17 +17,24 @@
 html,
 body {
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
 }
 
 body {
+  /* background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); */
+  background-image: linear-gradient(to right, #ff6666, #ffcc66, #ffff66, #99ff99, #66ccff, #9999ff, #ff99ff);
   margin: 0;
   padding: 0;
-  font-family: 'Karla', sans-serif;
+  font-family: 'Alkatra', cursive;
   font-weight: 400;
   line-height: 1.5;
   font-size: 16px;
   color: var(--dark);
 }
+
 
 h1,
 h2,
@@ -34,7 +42,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Bruno Ace SC', cursive;
   font-weight: 500;
   margin: 5px 0;
   line-height: 1.25;
@@ -73,6 +81,8 @@ a {
   color: var(--tertiary);
   text-decoration: none;
   font-weight: bold;
+  text-align: center;
+
 }
 
 a:hover {
@@ -80,14 +90,52 @@ a:hover {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
   background: var(--primary);
 }
 
 header a {
   color: var(--light);
 }
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none; /* Removes bullets */
+  padding: 0; /* Removes default padding */
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center; /* Center the list items */
+  list-style-type: none; /* Removes bullets */
+  padding-right: 50px; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+.nav-list li {
+  margin: 0 10px; /* Add some spacing between list items */
+}
+.pokeball-icon {
+  width: 60px;
+  height: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+
 
 button {
+  color: #f0f0f0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1rem;
   text-decoration: none;
   padding: 0.25rem 1rem;
@@ -202,6 +250,50 @@ input:focus {
 .error-text {
   color: var(--error);
 }
+/* .catch-em-all-footer {
+  display: flex;
+  background-color: var(--primary);
+  color: #fff;
+  padding: 20px;
+  font-size: 18px;
+  width: 100%;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-button {
+  text-decoration: none;
+  color: #fff;
+  background-color: #4caf50;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.footer-button:hover {
+  background-color: #45a049;
+}
+
+.copyright {
+  text-align: right;
+  font-size: 14px;
+} */
+
 
 @media screen and (max-width: 768px) {
   .card {
