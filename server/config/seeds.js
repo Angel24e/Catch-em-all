@@ -1,6 +1,6 @@
 const db = require('./connection');
 // Change product to pokemon and category to type
-const { User, Pokemon, Type } = require('../models');
+const { User, Pokemon, Category } = require('../models');
 
 db.once('open', async () => {
   // change category to type
