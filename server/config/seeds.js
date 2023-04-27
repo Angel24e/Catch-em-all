@@ -4,10 +4,10 @@ const { User, Pokemon, Category } = require('../models');
 
 db.once('open', async () => {
   // change category to type
-  await Type.deleteMany();
+  await Category.deleteMany();
 
     // change category to type
-  const types = await Type.insertMany([
+  const categories = await Category.insertMany([
     { name: 'Fire' },
     { name: 'Fairy' },
     { name: 'Water' },
