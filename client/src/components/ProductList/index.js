@@ -45,7 +45,7 @@ function ProductList() {
 
   return (
     <div className="my-2">
-      <h2>Our Pokemons:</h2>
+      <h2>Available Pokemons:</h2>
       {state.products.length ? (
         <div className="flex-row">
           {filterProducts().map((product) => (
@@ -60,11 +60,11 @@ function ProductList() {
           ))}
         </div>
       ) : (
-        <h3>You haven't added any Pokemons yet!</h3>
+        <h3>You haven't catch any Pokemon yet!</h3>
       )}
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
   );
 }
 
-export default ProductList;
+export default ProductList; 

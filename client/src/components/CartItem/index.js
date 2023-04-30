@@ -35,6 +35,7 @@ const CartItem = ({ item }) => {
 
     }
   }
+
   return (
     <div className="flex-row">
       <div>

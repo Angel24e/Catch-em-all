@@ -1,9 +1,6 @@
 const User = require('./User');
-// change product to pokemon
-const Pokemon = require('./Pokemon');
-// change category to type
-const Type = require('./Type');
-// change order to adoption
-const Adoption = require('./Adoption');
+const Product = require('./Product');
+const Category = require('./Category');
+const Order = require('./Order');
 
-module.exports = { User, Pokemon, Type, Adoption };
+module.exports = { User, Product, Category, Order };

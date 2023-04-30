@@ -1,7 +1,3 @@
-/*shop-shop = catch-em-all */
-//products = pokemon; categories=type
-
-
 export function pluralize(name, count) {
   if (count === 1) {
     return name;
@@ -9,16 +5,14 @@ export function pluralize(name, count) {
   return name + 's';
 }
 
-/*shop-shop = catch-em-all */
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open('catch-em-all', 1);
+    const request = window.indexedDB.open('shop-shop', 1);
     let db, tx, store;
     request.onupgradeneeded = function(e) {
       const db = request.result;
-      //products = pokemon; categories=types
-      db.createObjectStore('pokemon', { keyPath: '_id' });
-      db.createObjectStore('types', { keyPath: '_id' });
+      db.createObjectStore('products', { keyPath: '_id' });
+      db.createObjectStore('categories', { keyPath: '_id' });
       db.createObjectStore('cart', { keyPath: '_id' });
     };
 

@@ -1,12 +1,9 @@
 const db = require('./connection');
-// Change product to pokemon and category to type
-const { User, Pokemon, Category } = require('../models');
+const { User, Product, Category } = require('../models');
 
 db.once('open', async () => {
-  // change category to type
   await Category.deleteMany();
 
-    // change category to type
   const categories = await Category.insertMany([
     { name: 'Fire' },
     { name: 'Fairy' },
@@ -24,14 +21,11 @@ db.once('open', async () => {
     { name: 'Grass' }
   ]);
 
-  console.log('types seeded');
+  console.log('categories seeded');
 
-  // Change product to pokemon
-  await Pokemon.deleteMany();
+  await Product.deleteMany();
 
-    // Change product to pokemon
-    // replace all the seeded content to pokemon
-  const pokemons = await Pokemon.insertMany([
+  const products = await Product.insertMany([
     {
       name: 'Arceus',
       description:
@@ -231,29 +225,27 @@ db.once('open', async () => {
     }
   ]);
 
-  console.log('pokemon seeded');
+  console.log('products seeded');
 
   await User.deleteMany();
 
   await User.create({
-    firstName: 'Pamela',
-    lastName: 'Washington',
-    email: 'pamela@testmail.com',
-    password: 'password12345',
-    // change order to adoption
-    adoptions: [
+    firstName: 'CatchemAll',
+    lastName: 'Pokemon',
+    email: 'catchemall@testmail.com',
+    password: 'pokemon12345',
+    orders: [
       {
-        // change products to pokemon
-        pokemons: [pokemons[0]._id, pokemons[0]._id, pokemons[1]._id]
+        products: [products[0]._id, products[0]._id, products[1]._id]
       }
     ]
   });
 
   await User.create({
-    firstName: 'Elijah',
-    lastName: 'Holt',
-    email: 'eholt@testmail.com',
-    password: 'password12345'
+    firstName: 'Ash',
+    lastName: 'Ketchum',
+    email: 'aketchum@testmail.com',
+    password: 'AshKetchum12345'
   });
 
   console.log('users seeded');
