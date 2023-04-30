@@ -1,23 +1,22 @@
-// .addOrder = .addAdoption
 import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Jumbotron from '../components/Jumbotron';
-import { ADD_ADOPTION } from '../utils/mutations';
+import { ADD_ORDER } from '../utils/mutations';
 import { idbPromise } from '../utils/helpers';
 
 function Success() {
-  const [addAdoption] = useMutation(ADD_ADOPTION);
+  const [addOrder] = useMutation(ADD_ORDER);
 
   useEffect(() => {
-    async function saveAdoption() {
+    async function saveOrder() {
       const cart = await idbPromise('cart', 'get');
-      const pokemon = cart.map((item) => item._id);
+      const products = cart.map((item) => item._id);
 
-      if (pokemon.length) {
-        const { data } = await addAdoption({ variables: { pokemon } });
-        const pokemonData = data.addAdoption.pokemon;
+      if (products.length) {
+        const { data } = await addOrder({ variables: { products } });
+        const productData = data.addOrder.products;
 
-        pokemonData.forEach((item) => {
+        productData.forEach((item) => {
           idbPromise('cart', 'delete', item);
         });
       }
@@ -27,8 +26,8 @@ function Success() {
       }, 3000);
     }
 
-    saveAdoption();
-  }, [addAdoption]);
+    saveOrder();
+  }, [addOrder]);
 
   return (
     <div>

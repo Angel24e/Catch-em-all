@@ -1,16 +1,15 @@
-//addOrder = addAdoption ; ADD_ORDER = ADD_ADOPTION ; products = pokemon ; category = type;
 import { gql } from '@apollo/client';
 
 export const QUERY_PRODUCTS = gql`
-  query getPokemon($category: ID) {
-    products(types: $types) {
+  query getProducts($category: ID) {
+    products(category: $category) {
       _id
       name
       description
       price
       quantity
       image
-      types {
+      category {
         _id
       }
     }
@@ -18,14 +17,14 @@ export const QUERY_PRODUCTS = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getPokemon($pokemon: [ID]!) {
-    checkout(pokemon: $pokemon) {
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
       session
     }
   }
 `;
 
-export const QUERY_POKEMON = gql`
+export const QUERY_ALL_PRODUCTS = gql`
   {
     products {
       _id
@@ -33,7 +32,7 @@ export const QUERY_POKEMON = gql`
       description
       price
       quantity
-      types {
+      category {
         name
       }
     }
@@ -42,7 +41,7 @@ export const QUERY_POKEMON = gql`
 
 export const QUERY_CATEGORIES = gql`
   {
-    types {
+    categories {
       _id
       name
     }
@@ -56,8 +55,8 @@ export const QUERY_USER = gql`
       lastName
       orders {
         _id
-        adoptionDate
-        pokemon {
+        purchaseDate
+        products {
           _id
           name
           description

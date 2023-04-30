@@ -1,6 +1,3 @@
-/*Variable Changes
-PRODUCT = POKEMON */
-
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -11,11 +8,9 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
   ADD_TO_CART,
-  //UPDATE_PRODUCTS
-  UPDATE_POKEMON,
+  UPDATE_PRODUCTS,
 } from '../utils/actions';
-//QUERY_PRODUCTS
-import { QUERY_POKEMON } from '../utils/queries';
+import { QUERY_PRODUCTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import spinner from '../assets/spinner.gif';
 
@@ -23,55 +18,43 @@ function Detail() {
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
 
-  //currentProduct, setCurrentProduct
-  const [currentPokemon, setCurrentPokemon] = useState({});
+  const [currentProduct, setCurrentProduct] = useState({});
 
-  //QUERY_PRODUCTS
-  const { loading, data } = useQuery(QUERY_POKEMON);
+  const { loading, data } = useQuery(QUERY_PRODUCTS);
 
-  //products
-  const { pokemon, cart } = state;
+  const { products, cart } = state;
 
   useEffect(() => {
     // already in global store
     if (products.length) {
-      //setCurrentProducts ;; products.find((product) => pokemon._id)
-      setCurrentPokemon(pokemon.find((pokemon) => pokemon._id === id));
+      setCurrentProduct(products.find((product) => product._id === id));
     }
     // retrieved from server
     else if (data) {
       dispatch({
-        //UPDATE_POKEMON
-        type: UPDATE_POKEMON,
-        //data.products
-        products: data.pokemon,
+        type: UPDATE_PRODUCTS,
+        products: data.products,
       });
-        //data.pokemon
-      data.pokemon.forEach((pokemon) => {
-        //'products', 'put', product
-        idbPromise('pokemon', 'put', pokemon);
+
+      data.products.forEach((product) => {
+        idbPromise('products', 'put', product);
       });
     }
     // get cache from idb
     else if (!loading) {
-      // 'product', 'get', indexedProducts
-      idbPromise('pokemon', 'get').then((indexedPokemon) => {
+      idbPromise('products', 'get').then((indexedProducts) => {
         dispatch({
-          //UPDATE_POKEMON
-          type: UPDATE_POKEMON,
-          //products: indexedProduct,
-          products: indexedPokemon,
+          type: UPDATE_PRODUCTS,
+          products: indexedProducts,
         });
       });
     }
-    //products
-  }, [pokemon, data, loading, dispatch, id]);
+  }, [products, data, loading, dispatch, id]);
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === id);
     if (itemInCart) {
       dispatch({
-        //type === ???
         type: UPDATE_CART_QUANTITY,
         _id: id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
@@ -83,22 +66,19 @@ function Detail() {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        //product: {...currentProduct, purchaseQuantity: 1},
-        pokemon: { ...currentPokemon, purchaseQuantity: 1 },
+        product: { ...currentProduct, purchaseQuantity: 1 },
       });
-      idbPromise('cart', 'put', { ...currentPokemon, purchaseQuantity: 1 });
+      idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
     }
   };
 
   const removeFromCart = () => {
     dispatch({
       type: REMOVE_FROM_CART,
-      //currentProduct
-      _id: currentPokemon._id,
+      _id: currentProduct._id,
     });
 
-    //currentProduct
-    idbPromise('cart', 'delete', { ...currentPokemon });
+    idbPromise('cart', 'delete', { ...currentProduct });
   };
 
   return (

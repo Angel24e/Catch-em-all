@@ -1,30 +1,23 @@
-/*StoreProvider = AdoptionProvider
-useProductReducer = usePokemonReducer 
-useStoreContext = useAdoptionContext
-StoreContext = AdoptionContext
-currentCategory = currentType 
-products = pokemon
-categories = type */
 import React, { createContext, useContext } from "react";
-import { usePokemonReducer } from './reducers'
+import { useProductReducer } from './reducers'
 
-const AdoptionContext = createContext();
-const { Provider } = AdoptionContext;
+const StoreContext = createContext();
+const { Provider } = StoreContext;
 
-const adoptionProvider = ({ value = [], ...props }) => {
-  const [state, dispatch] = usePokemonReducer({
-    pokemon: [],
+const StoreProvider = ({ value = [], ...props }) => {
+  const [state, dispatch] = useProductReducer({
+    products: [],
     cart: [],
     cartOpen: false,
-    types: [],
-    currentType: '',
+    categories: [],
+    currentCategory: '',
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
 };
 
-const useAdoptionContext = () => {
-  return useContext(AdoptionContext);
+const useStoreContext = () => {
+  return useContext(StoreContext);
 };
 
-export { AdoptionProvider, useAdoptionContext };
+export { StoreProvider, useStoreContext };
