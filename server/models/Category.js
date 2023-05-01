@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// Change category to type
 const categorySchema = new Schema({
   name: {
     type: String,
@@ -11,8 +10,6 @@ const categorySchema = new Schema({
   }
 });
 
-// Change category to type
 const Category = mongoose.model('Category', categorySchema);
 
-// Change category to type
 module.exports = Category;

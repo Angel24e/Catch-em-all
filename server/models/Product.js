@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// change product to pokemon
-const pokemonSchema = new Schema({
+const productSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -25,16 +24,13 @@ const pokemonSchema = new Schema({
     min: 0,
     default: 0
   },
-  // change category to type
-  type: {
+  category: {
     type: Schema.Types.ObjectId,
-    ref: 'Type',
+    ref: 'Category',
     required: true
   }
 });
 
-// change product to pokemon
-const Pokemon = mongoose.model('Pokemon', pokemonSchema);
+const Product = mongoose.model('Product', productSchema);
 
-// change product to pokemon
-module.exports = Pokemon;
+module.exports = Product;
