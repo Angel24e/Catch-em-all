@@ -52,8 +52,7 @@ and a shopping cart for users to keep track of their selected Pokemon. The main 
 ![image of the application 3](./client/public/images/screenshots/adoptionHistory.png)
 
 ## Installation
-you can : 
-check our Website on this link:   [Catch-Em-All Website](https://github.com/Ash0422)
+Website Link: https://catchemallash.herokuapp.com/
 
 ## Usage
 
