@@ -1,8 +1,8 @@
 {
-  "name": "catch-em-all",
+  "name": "mern-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://immense-sea-29869.herokuapp.com/",
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@stripe/stripe-js": "^1.3.1",
