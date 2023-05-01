@@ -14,7 +14,7 @@ const typeDefs = gql`
     image: String
     quantity: Int
     price: Float
-    type: Category
+    category: Category
   }
 
   type Adoption {
@@ -41,7 +41,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    types: [Category]
+    categories: [Category]
     pokemons(Category: ID, name: String): [Pokemon]
     pokemon(_id: ID!): Pokemon
     user: User

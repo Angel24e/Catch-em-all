@@ -1,4 +1,3 @@
-//addOrder = addAdoption ; ADD_ORDER = ADD_ADOPTION ; products = pokemon ; category = type;
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
@@ -15,9 +14,10 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import { AdoptionProvider } from './utils/GlobalState';
+import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
-import AdoptionHistory from './pages/OrderHistory';
+import OrderHistory from './pages/OrderHistory';
+import Footer from './components/Footer/Footer';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -63,3 +63,4 @@ function App() {
 }
 
 export default App;
+

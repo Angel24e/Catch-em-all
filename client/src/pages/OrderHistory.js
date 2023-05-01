@@ -1,14 +1,10 @@
-/*Product = Pokemon
-Order = Adopt 
-purchaseDate = adoptionDate*/
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
 
-//function OrderHistory() {
-function AdoptHistory() {
+function OrderHistory() {
   const { data } = useQuery(QUERY_USER);
   let user;
 
@@ -53,4 +49,4 @@ function AdoptHistory() {
   );
 }
 
-export default AdoptionHistory;
+export default OrderHistory;

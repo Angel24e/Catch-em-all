@@ -1,52 +1,52 @@
-//addOrder = addAdoption ; ADD_ORDER = ADD_ADOPTION ; products = pokemon ; category = type;
 import { useReducer } from "react";
 import {
-  UPDATE_POKEMON,
+  UPDATE_PRODUCTS,
   ADD_TO_CART,
   UPDATE_CART_QUANTITY,
   REMOVE_FROM_CART,
   ADD_MULTIPLE_TO_CART,
-  UPDATE_TYPES,
-  UPDATE_CURRENT_TYPES,
+  UPDATE_CATEGORIES,
+  UPDATE_CURRENT_CATEGORY,
+  CLEAR_CART,
   TOGGLE_CART
 } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_POKEMON:
+    case UPDATE_PRODUCTS:
       return {
         ...state,
-        pokemon: [...action.pokemon],
+        products: [...action.products],
       };
 
     case ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.pokemon],
+        cart: [...state.cart, action.product],
       };
 
     case ADD_MULTIPLE_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, ...action.pokemon],
+        cart: [...state.cart, ...action.products],
       };
 
     case UPDATE_CART_QUANTITY:
       return {
         ...state,
         cartOpen: true,
-        cart: state.cart.map(pokemon => {
-          if (action._id === pokemon._id) {
-            pokemon.adoptionQuantity = action.adoptionQuantity
+        cart: state.cart.map(product => {
+          if (action._id === product._id) {
+            product.purchaseQuantity = action.purchaseQuantity
           }
-          return pokemon
+          return product
         })
       };
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter(pokemon => {
-        return pokemon._id !== action._id;
+      let newState = state.cart.filter(product => {
+        return product._id !== action._id;
       });
 
       return {
@@ -68,16 +68,16 @@ export const reducer = (state, action) => {
         cartOpen: !state.cartOpen
       };
 
-    case UPDATE_TYPES:
+    case UPDATE_CATEGORIES:
       return {
         ...state,
-        types: [...action.categories],
+        categories: [...action.categories],
       };
 
-    case UPDATE_CURRENT_TYPES:
+    case UPDATE_CURRENT_CATEGORY:
       return {
         ...state,
-        currentTypes: action.currentCategory
+        currentCategory: action.currentCategory
       }
 
     default:
@@ -85,6 +85,6 @@ export const reducer = (state, action) => {
   }
 };
 
-export function usePokemonReducer(initialState) {
+export function useProductReducer(initialState) {
   return useReducer(reducer, initialState)
 }

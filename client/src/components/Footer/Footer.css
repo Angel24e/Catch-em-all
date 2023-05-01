@@ -42,6 +42,7 @@
     font-size: 14px;
   }
   .catch-em-all-footer {
+    /* need to be fixed */
     position: fixed;
     bottom: 0;
     width: 100%;
